@@ -21,7 +21,13 @@ function buildPrompt({ text, mode, language, context }) {
     word: "Explain the selected word or phrase: meaning, simple synonyms, use in this book line, and one easy example.",
     line: "Explain the selected line: literal meaning, hidden meaning, important terms, and why it matters.",
     summary: "Summarize the passage, explain difficult ideas, and list 4 key takeaways.",
-    question: "Answer the reader's question using the selected text and context. Say when the text does not provide enough evidence."
+    question: "Answer the reader's question using the selected text and context. Say when the text does not provide enough evidence.",
+    narrate: [
+      "Turn the selected passage into a warm spoken narration, like a thoughtful human teacher reading a book aloud.",
+      "First briefly paraphrase the passage, then explain the deeper meaning, emotion, and hidden idea.",
+      "Use natural Hinglish, short spoken sentences, and gentle transitions.",
+      "Do not say stage directions. Do not use markdown bullets. Keep it under 220 words."
+    ].join(" ")
   };
 
   return [
@@ -37,6 +43,12 @@ function buildPrompt({ text, mode, language, context }) {
 async function callGemini(payload) {
   const key = process.env.GEMINI_API_KEY;
   if (!key) {
+    if (payload.mode === "narrate") {
+      return {
+        provider: "demo",
+        text: "Demo narration: Gemini API key set karne ke baad main is passage ko ek human teacher ki tarah padhkar uska deeper meaning samjhaunga. Abhi browser voice original selected text ko softer pace par suna sakti hai."
+      };
+    }
     return {
       provider: "demo",
       text: "Demo mode: GEMINI_API_KEY set karne ke baad yahan real AI explanation aayegi. Abhi selected text ko simple parts mein todkar padhne, search aur Wikipedia tools test kar sakte ho."

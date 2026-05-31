@@ -2,6 +2,9 @@
 
 API-based book reader prototype for reading, listening, explaining words/lines, and searching Wikipedia or Google.
 
+PDF uploads render as real pages with clickable word underlines, synchronized voice playback, and a transcript panel.
+Use the sparkle voice button for AI-teacher narration: it rewrites the selected passage into natural Hinglish explanation before speaking it.
+
 ## Run
 
 ```bash
